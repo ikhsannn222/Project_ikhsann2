@@ -39,3 +39,11 @@ Route::get('/apaaja', function () {
    return view('apaaja',compact('nama2','jk2','alamat2','tgl','tmp','hobi','cita'));
 });
 
+Route::get('/about2/{nama}/{jk}/{pendidikan}/{pekerjaan}/{alamat}', function (Request $request, $nama, $jk, $pendidikan, $pekerjaan, $alamat) {
+    $nama2 = $nama;
+    $jk2 = $jk;
+    $pendidikan2 = $pendidikan;
+    $pekerjaan2 = $pekerjaan;
+    $alamat3 = $alamat;
+    return view('data_diri2',compact('nama2','jk2','pendidikan2','pekerjaan2','alamat3'));
+});
