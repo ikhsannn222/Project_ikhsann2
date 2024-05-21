@@ -17,33 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about', function () {
-    $nama = "Ikhsan";
-    $jk = "Pria";
-    $pendidikan = "Smk";
-    $pekerjaan = "Programming";
-    $alamat = "bandung";
-    return view('data_diri', compact('nama','jk','pendidikan','pekerjaan','alamat'));
-});
+Auth::routes();
 
-Route::get('/apaaja', function () {
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// tambahkan di bawah ini
+Route::resource('produk', App\Http\Controllers\ProdukController::class)->middleware('auth');
+//  export pdf
+Route::post('produk/export-produk',[App\Http\Controllers\ProdukController::class, 'viewPDF'])->name('produk.view-pdf');
 
-    $nama2 = "Ikhsan";
-    $jk2 = "Pria";
-    $alamat2 = "Babakan Antasari";
-    $tgl = "26 April 2007";
-    $tmp = "Bandung";
-    $hobi = "Look a Sky";
-    $cita ="Sukses";
 
-   return view('apaaja',compact('nama2','jk2','alamat2','tgl','tmp','hobi','cita'));
-});
+// Auth::routes();
 
-Route::get('/about2/{nama}/{jk}/{pendidikan}/{pekerjaan}/{alamat}', function (Request $request, $nama, $jk, $pendidikan, $pekerjaan, $alamat) {
-    $nama2 = $nama;
-    $jk2 = $jk;
-    $pendidikan2 = $pendidikan;
-    $pekerjaan2 = $pekerjaan;
-    $alamat3 = $alamat;
-    return view('data_diri2',compact('nama2','jk2','pendidikan2','pekerjaan2','alamat3'));
-});
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
