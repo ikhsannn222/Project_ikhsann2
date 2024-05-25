@@ -7,29 +7,68 @@
             <div class="card">
                 <div class="card-header">
                     <div class="float-start">
-                       Merk
+                        {{ __('Dashboard') }}
                     </div>
                     <div class="float-end">
-                        <a href="{{ route('merk.index') }}" class="btn btn-sm btn-outline-primary">Kembali</a>
+                        <a href="{{ route('produk.index') }}" class="btn btn-sm btn-outline-primary">Kembali</a>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('merk.store') }}" method="POST">
+                    <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label class="form-label">Nama Merk</label>
-                            <input type="text" class="form-control @error('nama_merk') is-invalid @enderror" name="nama_merk"
-                                value="{{ old('nama_merk') }}" placeholder="Nama Merk" required>
-                            @error('nama_merk')
+                            <label class="form-label">Nama Produk</label>
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
+                                value="{{ old('nama') }}" placeholder="produk Name" required>
+                            @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Harga Produk</label>
+                            <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga"
+                                value="{{ old('harga') }}" placeholder="Harga" required>
+                            @error('harga')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Deskripsi</label>
+                            <textarea class="form-control" class="form-control @error('deskirpsi') is-invalid @enderror"
+                                name="deskripsi" value="{{ old('deskirpsi') }}" rows="3" placeholder="deskirpsi"
+                                required></textarea>
+                            @error('deskirpsi')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
+                                value="{{ old('image') }}" required></input>
+                            @error('image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="">Merk</label>
+                            <select name="id_merk" id="" class="form-control">
+                                @foreach ($merk as $item)
+                                    <option value="{{$item->id}}">{{ $item->nama_merk }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
                         <button type="reset" class="btn btn-sm btn-warning">Reset</button>
-
                     </form>
                 </div>
             </div>

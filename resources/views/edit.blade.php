@@ -7,30 +7,73 @@
             <div class="card">
                 <div class="card-header">
                     <div class="float-start">
-                       Merk
+                        {{ __('Dashboard') }}
                     </div>
                     <div class="float-end">
-                        <a href="{{ route('merk.index') }}" class="btn btn-sm btn-outline-primary">Kembali</a>
+                        <a href="{{ route('produk.index') }}" class="btn btn-sm btn-outline-primary">Kembali</a>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('merk.update',$merk->id) }}" method="POST">
-                        @csrf
+                    <form action="{{ route('produk.update', $produk->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @method('put')
+                        @csrf
+                        {{-- <input type="text" value="{{csrf_token()}}"> --}}
                         <div class="mb-3">
-                            <label class="form-label">Nama Merk</label>
-                            <input type="text" class="form-control @error('nama_merk') is-invalid @enderror" name="nama_merk"
-                                value="{{$merk->nama_merk}}" required>
-                            @error('nama_merk')
+                            <label class="form-label">Nama Produk</label>
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
+                                value="{{ $produk->nama }}" placeholder="produk Name" required>
+                            @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
-                        <button type="reset" class="btn btn-sm btn-warning">Reset</button>
+                        <div class="mb-3">
+                            <label class="form-label">Harga Produk</label>
+                            <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga"
+                                value="{{ $produk->harga }}" placeholder="Harga" required>
+                            @error('harga')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Deskripsi</label>
+                            <textarea class="form-control" class="form-control @error('deskirpsi') is-invalid @enderror"
+                                name="deskripsi" rows="3" placeholder="deskirpsi"
+                                required>{{ $produk->deskripsi }}</textarea>
+                            @error('deskirpsi')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
 
+                        <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
+                                value="{{ $produk->image }}"></input>
+                            @error('image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="">Merk</label>
+                            <select name="id_merk" id="" class="form-control">
+                                @foreach ($merk as $item)
+                                    <option value="{{$item->id}}" {{$item->id == $produk->id_merk ? 'selected': ''}}>{{ $item->nama_merk }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-sm btn-primary">SIMPAN</button>
+                        <button type="reset" class="btn btn-sm btn-warning">RESET</button>
                     </form>
                 </div>
             </div>
